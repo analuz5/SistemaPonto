@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>funcionarioDashboard</title>
+    <link rel="stylesheet" href="../CSS/dashboardFuncionario.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+</head>
+<body>
+    <div class="dashboard-container">
+        <header class="dashboard-header">
+            <h1 class="title">Painel do Funcionário</h1>
+            <span class="user-info">
+                <i class="fas fa-user-circle"></i> A. Usuário Biométrico
+            </span>
+            <a href="#" class="online-status">
+                <i class="fas fa-circle online-dot"></i> Online
+            </a>
+            <button class="btn btn-sair">Sair</button>
+        </header>
+
+        <main class="content-area">
+
+            <div class="card info-card">
+                <div class="info-group">
+                    <label>Ordem de Serviço</label>
+                    <p class="value primary-text">OS-2025-001</p>
+                </div>
+                <div class="info-group">
+                    <label>Empresa</label>
+                    <p class="value">Empresa Exemplo Ltda</p>
+                </div>
+                <div class="location-current">
+                    <i class="fas fa-location-arrow"></i>
+                    <div class="location-details">
+                        <label>Localização Atual</label>
+                        <p class="value-small">Lat: -23.244600, Long: -47.306100</p>
+                    </div>
+                </div>
+            </div>
+
+            <h2 class="section-title">Mapa de Localização</h2>
+            <div class="card map-card">
+                <div class="map-placeholder">
+                    <i class="fas fa-map-marker-alt map-pin"></i>
+                    <p>Mapa interativo será carregado aqui</p>
+                    <p class="coords">-23.2446, -47.3061</p>
+                </div>
+            </div>
+
+            <h2 class="section-title">Ações Rápidas</h2>
+            <div class="actions-grid">
+                <button class="action-btn action-primary">
+                    <i class="fas fa-route"></i> Viagem
+                </button>
+                <button class="action-btn action-secondary">
+                    <i class="fas fa-briefcase"></i> Trabalho
+                </button>
+                <button class="action-btn action-secondary">
+                    <i class="fas fa-dollar-sign"></i> Custos
+                </button>
+                <button class="action-btn action-secondary">
+                    <i class="fas fa-file-alt"></i> Relatório
+                </button>
+            </div>
+
+        </main>
+    </div>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-card">
+            <div class="header">
+                <i class="fas fa-clock icon-clock"></i>
+                <h1>Sistema de Ponto</h1>
+                <p>Registre sua jornada de trabalho com segurança</p>
+            </div>
+
+            <form class="login-form">
+                <div class="input-group">
+                    <label for="usuario">Usuário</label>
+                    <input type="text" id="usuario" placeholder="Digite seu usuário" required>
+                </div>
+                
+                <div class="input-group">
+                    <label for="senha">Senha</label>
+                    <input type="password" id="senha" placeholder="Digite sua senha" required>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Entrar</button>
+
+                <a href="#" class="forgot-password">Esqueci a senha</a>
+            </form>
+
+            <div class="divider">
+                <span>OU</span>
+            </div>
+
+            <button type="button" class="btn btn-biometric">
+                <i class="fas fa-fingerprint icon-biometric"></i>
+                Autenticação Biométrica
+            </button>
+        </div>
+    </div>
+</body>
+</html>

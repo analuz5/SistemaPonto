@@ -1,0 +1,214 @@
+:root {
+    --color-primary: rgb(40, 62, 156); /* Azul principal */
+    --color-secondary: #e9eef6; /* Cinza claro dos botões secundários */
+    --color-background: #f7f9fc; /* Fundo geral da página */
+    --color-card-bg: #fff; /* Fundo dos cards */
+    --color-text-dark: #333;
+    --color-text-light: #777;
+    --color-success: #28a745;
+    --border-radius-base: 8px;
+    --shadow-base: 0 4px 12px rgba(0, 0, 0, 0.05);
+    --shadow-subtle: 0 1px 3px rgba(0, 0, 0, 0.05);
+    --color-light-gray: #f7f9fc;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: var(--color-background);
+    margin: 0;
+    padding: 0;
+}
+
+.dashboard-container {
+    max-width: 37,5 rem; /* Limite para simular a tela mobile/web compacta */
+    margin: 0 auto;
+    padding: 20px;
+    background-color: var(--color-white);
+    border-radius: var(--border-radius-base);
+    /* Ajuste do box-shadow para o efeito de brilho:
+       1. Sombra principal (mais próxima e escura)
+       2. Sombra suave (mais espalhada e clara/azulada) para o "glow"
+    */
+    box-shadow: 
+        0 8px 30px rgb(40, 62, 156), /* Sombra principal mais forte */
+        0 0 0 1px rgba(186, 186, 193, 0.05); /* Sombra suave para a borda */
+}
+
+/* CABEÇALHO */
+.dashboard-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 25px;
+    padding: 0 0 10px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.dashboard-header .title {
+    font-size: 1.5rem;
+    color: var(--color-text-dark);
+    margin: 0;
+}
+
+.dashboard-header .user-info {
+    font-size: 0.9rem;
+    color: var(--color-text-light);
+}
+
+.dashboard-header .online-status {
+    font-size: 0.8rem;
+    color: var(--color-success);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.dashboard-header .online-dot {
+    font-size: 0.6rem;
+}
+
+.btn-sair {
+    background-color: transparent;
+    border: 1px solid var(--color-text-light);
+    color: var(--color-text-light);
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.8rem;
+}
+
+
+/* SEÇÕES GERAIS */
+.section-title {
+    font-size: 1.2rem;
+    color: var(--color-text-dark);
+    margin: 20px 0 10px 0;
+    font-weight: bold;
+}
+
+/* CARDS */
+.card {
+    background-color: var(--color-card-bg);
+    border-radius: var(--border-radius-base);
+    padding: 20px;
+    margin-bottom: 15px;
+    box-shadow: var(--shadow-subtle);
+}
+
+/* CARD DE INFORMAÇÕES */
+.info-group {
+    margin-bottom: 10px;
+}
+
+.info-group label {
+    display: block;
+    font-size: 0.8rem;
+    color: var(--color-text-light);
+    margin-bottom: 2px;
+}
+
+.info-card .value {
+    font-size: 1rem;
+    font-weight: bold;
+    color: var(--color-text-dark);
+}
+
+.info-card .primary-text {
+    color: var(--color-primary);
+}
+
+/* LOCALIZAÇÃO ATUAL */
+.location-current {
+    display: flex;
+    align-items: center;
+    border-top: 1px solid #eee;
+    padding-top: 15px;
+    margin-top: 15px;
+}
+
+.location-current .fa-location-arrow {
+    font-size: 1.2rem;
+    color: var(--color-primary);
+    margin-right: 10px;
+}
+
+.location-details label {
+    font-size: 0.9rem;
+    font-weight: bold;
+}
+
+.location-details .value-small {
+    font-size: 0.8rem;
+    color: var(--color-text-light);
+    margin: 0;
+}
+
+
+/* MAPA */
+.map-card {
+    height: 250px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #e6f0ff; /* Fundo claro para o placeholder do mapa */
+    color: var(--color-primary);
+    text-align: center;
+}
+
+.map-placeholder .map-pin {
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+
+.map-placeholder p {
+    margin: 5px 0;
+    font-size: 0.9rem;
+}
+
+/* AÇÕES RÁPIDAS (GRID DE 2X2) */
+.actions-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.action-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 25px 15px;
+    border-radius: var(--border-radius-base);
+    border: none;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    height: 100px; /* Altura fixa para os botões */
+}
+
+.action-btn:hover {
+    transform: translateY(-2px);
+   
+    border-color: #ccc;
+    box-shadow: 
+        0 4px 10px rgb(40, 62, 156), /* Sombra principal mais forte */
+        0 0 0 1px rgba(186, 186, 193, 0.05); /* Sombra suave para a borda */
+}
+
+.action-btn i {
+    font-size: 1.5rem;
+    margin-bottom: 8px;
+}
+
+.action-primary {
+    background-color: var(--color-primary);
+    color: var(--color-card-bg); /* Texto branco */
+}
+
+.action-secondary {
+    background-color: var(--color-secondary);
+    color: var(--color-text-dark);
+}
