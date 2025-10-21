@@ -1,27 +1,67 @@
 import React, { useState } from 'react';
-// Importa o Pressable e TouchableOpacity que são usados
+// Importa todos os componentes necessários, incluindo Pressable para o hover
 import { View, Text, TextInput, Pressable, TouchableOpacity, StyleSheet, SafeAreaView } from 'react-native'; 
 import { Feather, FontAwesome5 } from '@expo/vector-icons'; // Importando ícones
 import styles from './LoginStyles'; // Estilos do arquivo LoginStyles.ts
+import { useRouter } from 'expo-router'; // Ferramenta de navegação do Expo
+import Toast from 'react-native-toast-message'; // Componente de alerta bonito (assumindo que foi instalado)
+
+// Definição das rotas internas usando o grupo (app)
+const ROTA_FUNCIONARIO = './tabs/employee';
+const ROTA_GESTOR = './tabs/manager';
+const ROTA_EMPRESA = './tabs/company';
 
 // Componente principal da tela de Login
 const LoginScreen = () => {
-    // Estados para armazenar os dados de entrada
+    // 1. Inicializa o roteador para navegação
+    const router = useRouter(); 
+    
+    // 2. Estados para armazenar os dados de entrada
     const [usuario, setUsuario] = useState('');
     const [senha, setSenha] = useState('');
 
-    // NOVOS ESTADOS: Para controlar o estado de foco do TextInput (solução para borda)
+    // 3. Estados para controlar o estado de foco do TextInput (solução para borda azul)
     const [usuarioFocado, setUsuarioFocado] = useState(false);
     const [senhaFocada, setSenhaFocada] = useState(false);
 
 
+    // Lógica de Autenticação (Testes de Redirecionamento)
+    // ESTA É A ÚNICA FUNÇÃO handleLogin
     const handleLogin = () => {
-        // Lógica de autenticação com Supabase e redirecionamento (a ser implementada)
-        console.log('Tentativa de Login:', usuario, senha);
+        // Normaliza as entradas para garantir que a comparação seja insensível a espaços
+        const usuarioNormalizado = usuario.trim();
+        const senhaNormalizada = senha.trim();
+        
+        // C. TESTE: Usuário Empresa (Maior prioridade para testar)
+        if (usuarioNormalizado === 'Empresa' && senhaNormalizada === 'E123456') {
+            router.replace(ROTA_EMPRESA); // Redirecionamento CORRETO
+            console.log('Login Empresa OK!');
+            return;
+        }
+        
+        // B. TESTE: Usuário Gestor
+        else if (usuarioNormalizado === 'Gestor' && senhaNormalizada === 'G123456') {
+            router.replace(ROTA_GESTOR); // Redirecionamento CORRETO
+            console.log('Login Gestor OK!');
+            return;
+        }
+
+        // A. TESTE: Usuário Funcionário
+        else if (usuarioNormalizado === 'Funcionario' && senhaNormalizada === 'F123456') {
+            router.replace(ROTA_FUNCIONARIO); // Redirecionamento CORRETO
+            console.log('Login Funcionário OK!');
+            return;
+        }
+
+        // D. LOGIN INVÁLIDO (Usando Toast bonito)
+        else {
+            console.log('Login Inválido! Tente novamente.');
+            alert ('Usuário ou Senha incorreto')
+        }
     };
 
+    // Lógica para Autenticação Biométrica (Você implementará depois)
     const handleBiometricAuth = () => {
-        // Lógica de autenticação biométrica (a ser implementada)
         console.log('Tentativa de Autenticação Biométrica');
     };
 

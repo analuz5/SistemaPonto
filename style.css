@@ -6,190 +6,281 @@
     --color-text-light: #666;
     --color-border: #ddd;
     --color-white: #fff;
+    --color-success: #28a745; /* Cor para feedback de sucesso, se necessário */
+    --color-danger: #dc3545; /* Cor para feedback de erro */
 
     /* Sombras e Bordas */
-    --shadow-light: 0 4px 12px rgba(0, 0, 0, 0.1);
+    --shadow-base: 0 4px 12px rgba(0, 0, 0, 0.1);
+    --shadow-glow: 0 8px 30px rgba(40, 62, 156, 0.15); /* Sombra mais suave para dashboard */
     --border-radius-base: 8px;
 }
 
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Arial', sans-serif;
     background-color: var(--color-light-gray);
+    margin: 0;
+    padding: 0;
+}
+
+/* --------------------------------- */
+/* 1. ESTRUTURA GERAL DO DASHBOARD */
+/* --------------------------------- */
+
+.dashboard-container {
+    width: 100%;
+    max-width: 900px; /* Limita a largura para melhor leitura em desktop */
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* --------------------------------- */
+/* 2. CABEÇALHO */
+/* --------------------------------- */
+
+.dashboard-header {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
-    min-height: 100vh;
+    padding: 15px 0;
+    margin-bottom: 20px;
+    border-bottom: 1px solid var(--color-border);
+}
+
+.dashboard-header .title {
+    color: var(--color-primary);
+    font-size: 1.5rem;
     margin: 0;
 }
 
-/* CONTAINER PRINCIPAL */
-.login-container {
-    padding: 20px;
-    width: 100%;
-    max-width: 400px;
+.user-info, .online-status {
+    font-size: 1rem;
+    color: var(--color-text-dark);
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    text-decoration: none;
 }
 
-/* CARD DE LOGIN (O retângulo branco) */
-.login-card {
+.online-dot {
+    color: var(--color-success);
+    font-size: 0.7em;
+}
+
+.btn-sair {
+    background-color: var(--color-danger);
+    color: var(--color-white);
+    padding: 8px 15px;
+    border: none;
+    border-radius: var(--border-radius-base);
+    cursor: pointer;
+    font-weight: bold;
+    transition: opacity 0.2s;
+}
+
+.btn-sair:hover {
+    opacity: 0.9;
+}
+
+/* --------------------------------- */
+/* 3. CARDS E SEÇÕES */
+/* --------------------------------- */
+
+.card {
     background-color: var(--color-white);
     border-radius: var(--border-radius-base);
-    /* Ajuste do box-shadow para o efeito de brilho:
-       1. Sombra principal (mais próxima e escura)
-       2. Sombra suave (mais espalhada e clara/azulada) para o "glow"
-    */
-    box-shadow: 
-        0 8px 30px rgb(40, 62, 156), /* Sombra principal mais forte */
-        0 0 0 1px rgba(186, 186, 193, 0.05); /* Sombra suave para a borda */
-    
-    padding: 40px 30px;
-    text-align: center;
+    box-shadow: var(--shadow-glow); /* Usando o shadow mais suave do login */
+    padding: 20px;
+    margin-bottom: 20px;
 }
 
-/* CABEÇALHO */
-.header {
-    margin-bottom: 30px;
-}
-
-.icon-clock {
-    font-size: 2.5rem;
-    color: var(--color-primary);
-    margin-bottom: 15px;
-}
-
-.header h1 {
-    font-size: 1.7rem;
+.section-title {
+    font-size: 1.2rem;
     color: var(--color-text-dark);
-    margin: 0;
+    margin: 25px 0 10px 0;
+    border-bottom: 2px solid var(--color-primary);
+    padding-bottom: 5px;
 }
 
-.header p {
-    font-size: 0.95rem;
-    color: var(--color-text-light);
-    margin-top: 5px;
+/* --------------------------------- */
+/* 4. CARD DE INFORMAÇÕES (info-card) - O FOCO DA ALTERAÇÃO */
+/* --------------------------------- */
+
+.info-card {
+    display: grid;
+    /* Ajuste o layout para alinhar os 3 campos (OS, Empresa, Local) */
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); 
+    gap: 20px;
+    align-items: start;
 }
 
-/* FORMULÁRIO */
-.login-form {
+.info-group {
     display: flex;
     flex-direction: column;
-    gap: 15px;
 }
 
-.input-group {
-    text-align: left;
-    
-}
-
-.input-group label {
-    display: block;
+.info-group label {
     font-size: 0.9rem;
-    color: var(--color-text-dark);
-    font-weight: bold;
+    color: var(--color-text-light);
+    font-weight: 500;
     margin-bottom: 5px;
 }
 
-.input-group input {
+/* Estilo unificado para os campos de entrada (input) */
+.info-card input[type="text"] {
     width: 100%;
-    padding: 12px 15px;
+    padding: 10px 12px;
     border: 1px solid var(--color-border);
-    box-sizing: border-box; /* Garante que o padding não aumente a largura total */
+    border-radius: 6px;
+    box-sizing: border-box; 
     font-size: 1rem;
     outline: none;
-    transition: border-color 0.2s;
-    border-radius: var(--border-radius-base);
-    /* Ajuste do box-shadow para o efeito de brilho:
-       1. Sombra principal (mais próxima e escura)
-       2. Sombra suave (mais espalhada e clara/azulada) para o "glow"
-    */
-    box-shadow: 
-        0 2px 10px rgb(40, 62, 156), /* Sombra principal mais forte */
-        0 0 0 1px rgba(186, 186, 193, 0.05); /* Sombra suave para a borda */
-    
+    transition: border-color 0.2s, box-shadow 0.2s;
+    background-color: var(--color-white); /* Garante fundo branco */
 }
 
-.input-group input:focus {
+/* Estilo para o campo INPUT principal (Ordem de Serviço) */
+#os_input {
+    font-weight: bold;
+    /* Cor de destaque para o input onde o usuário digita */
+    border-color: var(--color-primary); 
+}
+
+#os_input:focus {
     border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px rgba(40, 62, 156, 0.2);
 }
 
-/* BOTÕES */
-.btn {
-    padding: 12px;
+/* Estilo para os campos OUTPUT (Empresa e Local) - Somente leitura */
+.info-card input[readonly] {
+    background-color: var(--color-light-gray); /* Fundo cinza para indicar que é 'readonly' */
+    color: var(--color-text-dark);
+    cursor: default; /* Mostra que não é clicável/editável */
+}
+
+/* Estilo para o texto principal do input da OS (valor digitado) */
+.primary-text {
+    color: var(--color-primary);
+    font-weight: bold;
+}
+
+/* Estilo para a mensagem de feedback (erro/sucesso) */
+#feedback_os {
+    grid-column: 1 / -1; /* Ocupa a largura total abaixo dos inputs */
+    padding: 5px 10px;
+    margin-top: -10px; /* Ajusta a proximidade com os inputs */
+    border-radius: 4px;
+}
+
+/* Localização Atual (GPS) */
+.location-current {
+    grid-column: 1 / -1; /* Ocupa a largura total na linha inferior */
+    display: flex;
+    align-items: center;
+    padding-top: 15px;
+    border-top: 1px dashed var(--color-border);
+    margin-top: 10px;
+}
+
+.location-current i {
+    font-size: 1.5rem;
+    color: var(--color-danger);
+    margin-right: 10px;
+}
+
+.location-details label {
+    font-weight: bold;
+    color: var(--color-text-dark);
+}
+
+.value-small {
+    font-size: 0.85rem;
+    color: var(--color-text-light);
+    margin: 0;
+}
+
+/* --------------------------------- */
+/* 5. AÇÕES RÁPIDAS E MAPA */
+/* --------------------------------- */
+
+.actions-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 15px;
+}
+
+.action-btn {
+    padding: 20px 15px;
     border: none;
     border-radius: var(--border-radius-base);
     cursor: pointer;
     font-size: 1rem;
     font-weight: bold;
-    transition: background-color 0.2s, box-shadow 0.2s;
+    transition: transform 0.2s, box-shadow 0.2s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
 }
 
-.btn-primary {
+.action-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+}
+
+.action-btn i {
+    font-size: 1.8rem;
+}
+
+.action-primary {
     background-color: var(--color-primary);
     color: var(--color-white);
-    margin-top: 5px;
 }
 
-.btn-primary:hover {
-    background-color: #1a76c4; /* Um pouco mais escuro */
-}
-
-/* LINK ESQUECI A SENHA */
-.forgot-password {
+.action-secondary {
+    background-color: var(--color-white);
     color: var(--color-primary);
-    font-size: 0.9rem;
-    text-decoration: none;
-    margin-top: 5px;
-    margin-bottom: 10px;
+    border: 1px solid var(--color-primary);
 }
 
-.forgot-password:hover {
-    text-decoration: underline;
-}
-
-/* DIVISOR (OU) */
-.divider {
+.map-card {
+    min-height: 250px;
     display: flex;
+    justify-content: center;
     align-items: center;
     text-align: center;
-    margin: 25px 0;
+    background-color: #e9ecef; /* Cor diferente para o mapa */
+}
+
+.map-pin {
+    font-size: 3rem;
+    color: var(--color-danger);
+}
+
+.coords {
+    font-size: 0.9rem;
     color: var(--color-text-light);
 }
 
-.divider::before,
-.divider::after {
-    content: '';
-    flex: 1;
-    border-bottom: 1px solid var(--color-border);
-}
+/* --------------------------------- */
+/* 6. MEDIA QUERIES (Responsividade) */
+/* --------------------------------- */
+@media (max-width: 600px) {
+    .dashboard-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
 
-.divider:not(:empty)::before {
-    margin-right: .25em;
-}
-
-.divider:not(:empty)::after {
-    margin-left: .25em;
-}
-
-/* BOTÃO BIOMÉTRICO */
-.btn-biometric {
-    background-color: var(--color-white);
-    color: var(--color-text-dark);
-    border: 1px solid var(--color-border);
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-}
-
-.btn-biometric:hover {
-    background-color: var(--color-light-gray);
-    border-color: #ccc;
-    box-shadow: 
-        0 4px 10px rgb(40, 62, 156), /* Sombra principal mais forte */
-        0 0 0 1px rgba(186, 186, 193, 0.05); /* Sombra suave para a borda */
+    .dashboard-header .btn-sair {
+        margin-top: 10px;
+    }
     
-}
-
-.icon-biometric {
-    font-size: 1.2rem;
+    .info-card {
+        /* Garante que os campos fiquem um abaixo do outro em telas pequenas */
+        grid-template-columns: 1fr; 
+    }
+    
+    .location-current {
+        padding-top: 20px;
+        margin-top: 15px;
+    }
 }

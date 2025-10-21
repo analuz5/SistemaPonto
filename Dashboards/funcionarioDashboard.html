@@ -23,23 +23,35 @@
 
         <main class="content-area">
 
-            <div class="card info-card">
-                <div class="info-group">
-                    <label>Ordem de Serviço</label>
-                    <p class="value primary-text">OS-2025-001</p>
-                </div>
-                <div class="info-group">
-                    <label>Empresa</label>
-                    <p class="value">Empresa Exemplo Ltda</p>
-                </div>
-                <div class="location-current">
-                    <i class="fas fa-location-arrow"></i>
-                    <div class="location-details">
-                        <label>Localização Atual</label>
-                        <p class="value-small">Lat: -23.244600, Long: -47.306100</p>
-                    </div>
-                </div>
+           <div class="card info-card">
+        <div class="info-group">
+            <label for="os_input">Ordem de Serviço</label>
+            <input type="text" id="os_input" class="value primary-text" 
+                   placeholder="Digite a OS (Ex: OS-2025-001)" required>
+        </div>
+
+        <div class="info-group">
+            <label for="empresa_output">Empresa</label>
+            <input type="text" id="empresa_output" class="value" readonly 
+                   placeholder="Aguardando OS...">
+        </div>
+        
+        <div class="info-group">
+            <label for="local_output">Local da OS</label>
+            <input type="text" id="local_output" class="value" readonly 
+                   placeholder="Aguardando OS...">
+        </div>
+
+        <p id="feedback_os" style="color: red; font-size: 0.9em; margin-top: 5px;"></p>
+        
+        <div class="location-current">
+            <i class="fas fa-location-arrow"></i>
+            <div class="location-details">
+                <label>Localização Atual (GPS)</label>
+                <p class="value-small">Lat: -23.244600, Long: -47.306100</p>
             </div>
+        </div>
+    </div>
 
             <h2 class="section-title">Mapa de Localização</h2>
             <div class="card map-card">
