@@ -151,6 +151,11 @@ const employeeStyles = StyleSheet.create({
     fontWeight: 'bold',
     marginTop: 5,
   },
+  infoGroup: { // <-- Nome correto e esperado
+    marginBottom: 10,
+    // Adicione estilos adicionais aqui se necessário
+},
 });
+
 
 export default employeeStyles;

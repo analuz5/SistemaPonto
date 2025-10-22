@@ -3,7 +3,7 @@ import { View, Text, TouchableOpacity, StyleSheet, ScrollView, TextInput, Activi
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Feather } from '@expo/vector-icons';
 import * as Location from 'expo-location'; // Para a geolocalização
-import employeeStyles from 'employeeStyles'; // Importa os estilos (próxima seção)
+import employeeStyles from './employeeStyles'; // CORRETO: Volta um nível para encontrar o arquivo
 // import { supabase } from '../../lib/supabase/client'; // Importar Supabase após o teste
 
 const EmployeeDashboard = () => {

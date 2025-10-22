@@ -1,72 +1,70 @@
 import React, { useState } from 'react';
-// Importa todos os componentes necessários, incluindo Pressable para o hover
 import { View, Text, TextInput, Pressable, TouchableOpacity, StyleSheet, SafeAreaView } from 'react-native'; 
-import { Feather, FontAwesome5 } from '@expo/vector-icons'; // Importando ícones
+import { Feather, FontAwesome5 } from '@expo/vector-icons'; 
+import { useRouter } from 'expo-router'; 
+import Toast from 'react-native-toast-message'; 
 import styles from './LoginStyles'; // Estilos do arquivo LoginStyles.ts
-import { useRouter } from 'expo-router'; // Ferramenta de navegação do Expo
-import Toast from 'react-native-toast-message'; // Componente de alerta bonito (assumindo que foi instalado)
 
-// Definição das rotas internas usando o grupo (app)
-const ROTA_FUNCIONARIO = './tabs/employee';
-const ROTA_GESTOR = './tabs/manager';
-const ROTA_EMPRESA = './tabs/company';
+// Definição das rotas internas (DEVE SER ABSOLUTA PARA O ROUTER)
+const ROTA_FUNCIONARIO = '/(tabs)/employee';
+const ROTA_GESTOR = '/(tabs)/manager';
+const ROTA_EMPRESA = '/(tabs)/company';
 
 // Componente principal da tela de Login
 const LoginScreen = () => {
-    // 1. Inicializa o roteador para navegação
+    // 1. Inicializa o roteador
     const router = useRouter(); 
     
-    // 2. Estados para armazenar os dados de entrada
+    // 2. Estados para entrada e foco
     const [usuario, setUsuario] = useState('');
     const [senha, setSenha] = useState('');
-
-    // 3. Estados para controlar o estado de foco do TextInput (solução para borda azul)
     const [usuarioFocado, setUsuarioFocado] = useState(false);
     const [senhaFocada, setSenhaFocada] = useState(false);
 
 
     // Lógica de Autenticação (Testes de Redirecionamento)
-    // ESTA É A ÚNICA FUNÇÃO handleLogin
     const handleLogin = () => {
-        // Normaliza as entradas para garantir que a comparação seja insensível a espaços
         const usuarioNormalizado = usuario.trim();
         const senhaNormalizada = senha.trim();
         
-        // C. TESTE: Usuário Empresa (Maior prioridade para testar)
+        // C. TESTE: Usuário Empresa
         if (usuarioNormalizado === 'Empresa' && senhaNormalizada === 'E123456') {
-            router.replace(ROTA_EMPRESA); // Redirecionamento CORRETO
-            console.log('Login Empresa OK!');
+            router.replace(ROTA_EMPRESA); 
+            Toast.show({ type: 'success', text1: 'Login OK!', text2: 'Acesso como Empresa.' });
             return;
         }
         
         // B. TESTE: Usuário Gestor
         else if (usuarioNormalizado === 'Gestor' && senhaNormalizada === 'G123456') {
-            router.replace(ROTA_GESTOR); // Redirecionamento CORRETO
-            console.log('Login Gestor OK!');
+            router.replace(ROTA_GESTOR); 
+            Toast.show({ type: 'success', text1: 'Login OK!', text2: 'Acesso como Gestor.' });
             return;
         }
 
         // A. TESTE: Usuário Funcionário
         else if (usuarioNormalizado === 'Funcionario' && senhaNormalizada === 'F123456') {
-            router.replace(ROTA_FUNCIONARIO); // Redirecionamento CORRETO
-            console.log('Login Funcionário OK!');
+            router.replace(ROTA_FUNCIONARIO); 
+            Toast.show({ type: 'success', text1: 'Login OK!', text2: 'Acesso como Funcionário.' });
             return;
         }
 
-        // D. LOGIN INVÁLIDO (Usando Toast bonito)
+        // D. LOGIN INVÁLIDO (Feedback Bonito)
         else {
-            console.log('Login Inválido! Tente novamente.');
-            alert ('Usuário ou Senha incorreto')
+            Toast.show({
+                type: 'error',
+                text1: 'Acesso Negado',
+                text2: 'Credenciais de teste incorretas.',
+                position: 'top',
+                visibilityTime: 3000,
+            });
         }
     };
 
-    // Lógica para Autenticação Biométrica (Você implementará depois)
     const handleBiometricAuth = () => {
-        console.log('Tentativa de Autenticação Biométrica');
+        Toast.show({ type: 'info', text1: 'Biometria', text2: 'Funcionalidade em desenvolvimento.' });
     };
 
     return (
-        // Garante que o conteúdo não fique sob o notch/barra de status
         <SafeAreaView style={styles.safeArea}>
             <View style={styles.loginContainer}>
                 <View style={styles.loginCard}>
@@ -83,39 +81,36 @@ const LoginScreen = () => {
                         <View style={styles.inputGroup}>
                             <Text style={styles.label}>Usuário</Text>
                             <TextInput
-                                // Aplica estilo padrão e estilo de foco se 'usuarioFocado' for true
                                 style={[styles.input, usuarioFocado && styles.inputFocado]} 
                                 placeholder="Digite seu usuário"
                                 value={usuario}
                                 onChangeText={setUsuario}
                                 autoCapitalize="none"
                                 keyboardType="email-address"
-                                onFocus={() => setUsuarioFocado(true)} // Ativa o foco
-                                onBlur={() => setUsuarioFocado(false)} // Desativa o foco
+                                onFocus={() => setUsuarioFocado(true)} 
+                                onBlur={() => setUsuarioFocado(false)} 
                             />
                         </View>
                         
                         <View style={styles.inputGroup}>
                             <Text style={styles.label}>Senha</Text>
                             <TextInput
-                                // Aplica estilo padrão e estilo de foco se 'senhaFocada' for true
                                 style={[styles.input, senhaFocada && styles.inputFocado]} 
                                 placeholder="Digite sua senha"
                                 value={senha}
                                 onChangeText={setSenha}
                                 secureTextEntry
-                                onFocus={() => setSenhaFocada(true)} // Ativa o foco
-                                onBlur={() => setSenhaFocada(false)} // Desativa o foco
+                                onFocus={() => setSenhaFocada(true)} 
+                                onBlur={() => setSenhaFocada(false)} 
                             />
                         </View>
 
-                        {/* Botão Entrar com Efeito Hover/Pressed (usando Pressable) */}
+                        {/* Botão Entrar com Efeito Hover/Pressed */}
                         <Pressable
                             onPress={handleLogin}
-                            // Aplica o estilo de 'hover' quando 'pressed' for true
                             style={({ pressed }) => [
                                 styles.btnLoginPrimary,
-                                pressed && styles.btnLoginPrimaryPressed // Ativa o estilo de hover
+                                pressed && styles.btnLoginPrimaryPressed
                             ]}
                         >
                             <Text style={styles.btnTextPrimary}>Entrar</Text>
@@ -139,6 +134,28 @@ const LoginScreen = () => {
                         <FontAwesome5 name="fingerprint" style={styles.iconBiometric} />
                         <Text style={styles.btnTextBiometric}>Autenticação Biométrica</Text>
                     </TouchableOpacity>
+
+                    {/* === MENU DE TESTE RÁPIDO (DEV) === */}
+                    <View style={styles.quickTestContainer}>
+                        <Text style={styles.quickTestTitle}>Acesso Rápido (DEV)</Text>
+                        
+                        <View style={styles.quickTestGrid}>
+                            
+                            <TouchableOpacity style={styles.quickTestButton} onPress={() => router.replace(ROTA_FUNCIONARIO)}>
+                                <Text style={styles.quickTestText}>Funcionario</Text>
+                            </TouchableOpacity>
+
+                            <TouchableOpacity style={styles.quickTestButton} onPress={() => router.replace(ROTA_GESTOR)}>
+                                <Text style={styles.quickTestText}>Gestor</Text>
+                            </TouchableOpacity>
+                            
+                            <TouchableOpacity style={styles.quickTestButton} onPress={() => router.replace(ROTA_EMPRESA)}>
+                                <Text style={styles.quickTestText}>Empresa</Text>
+                            </TouchableOpacity>
+                            
+                        </View>
+                    </View>
+                    {/* === FIM BLOCO DE TESTE RÁPIDO === */}
 
                 </View>
             </View>
